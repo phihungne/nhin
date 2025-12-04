@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Làm bài xong chưa?</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #e5e5e5; /* NỀN XÁM SÁNG */
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .box {
+        background: #ffffffd8;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        width: 330px;
+        box-shadow: 0 0 20px #00000030;
+    }
+
+    input {
+        width: 90%;
+        padding: 12px;
+        font-size: 17px;
+        border-radius: 10px;
+        border: 2px solid #999;
+        outline: none;
+        margin-bottom: 15px;
+    }
+
+    button {
+        width: 140px;
+        padding: 12px;
+        border: none;
+        font-size: 17px;
+        color: white;
+        border-radius: 12px;
+        cursor: pointer;
+        margin: 7px;
+    }
+
+    .done { background: #28c75a; }
+    .notyet { background: #ff3c3c; }
+
+    #msg {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* ICON RƠI */
+    .fall {
+        position: absolute;
+        top: -50px;
+        animation: fallAnim linear forwards;
+        pointer-events: none;
+        z-index: 30;
+    }
+
+    @keyframes fallAnim {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>📚 Bạn đã làm bài xong chưa?</h2>
+
+    <input id="name" placeholder="Nhập tên của bạn...">
+
+    <br>
+
+    <button class="done" onclick="done()">ĐÃ LÀM XONG</button>
+    <button class="notyet" onclick="notyet()">CHƯA LÀM</button>
+
+    <div id="msg"></div>
+</div>
+
+<script>
+    function done() {
+        let name = document.getElementById("name").value.trim();
+        let msg = document.getElementById("msg");
+
+        if (name === "") {
+            msg.innerHTML = "Nhập tên trước đã nha!";
+            return;
+        }
+
+        msg.innerHTML = "🎉 Chúc mừng " + name + "! Bạn làm tốt lắm!";
+
+        // Rơi trái tim siêu to
+        for (let i = 0; i < 35; i++) {
+            createFall("❤️");
+        }
+    }
+
+    function notyet() {
+        let name = document.getElementById("name").value.trim();
+        let msg = document.getElementById("msg");
+
+        if (name === "") {
+            msg.innerHTML = "Nhập tên trước đã nha!";
+            return;
+        }
+
+        msg.innerHTML = "😡 " + name + " làm bài nhanh lên nha!!!";
+
+        // Rơi icon tức giận siêu to
+        for (let i = 0; i < 35; i++) {
+            createFall("😡");
+        }
+    }
+
+    function createFall(symbol) {
+        const item = document.createElement("div");
+        item.classList.add("fall");
+        item.innerHTML = symbol;
+
+        item.style.left = Math.random() * 100 + "vw";
+        item.style.fontSize = (40 + Math.random() * 35) + "px";
+        item.style.animationDuration = (3 + Math.random() * 2) + "s";
+
+        document.body.appendChild(item);
+
+        setTimeout(() => item.remove(), 5000);
+    }
+</script>
+
+</body>
+</html>
